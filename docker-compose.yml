@@ -1,0 +1,106 @@
+# ═══════════════════════════════════════════════════════════════════
+#  LeadHunter — Docker Compose
+#  Services: postgres17 · backend (FastAPI) · frontend (Next.js)
+# ═══════════════════════════════════════════════════════════════════
+
+services:
+
+  # ─────────────────────────────
+  #  Database — PostgreSQL 17
+  # ─────────────────────────────
+  postgres:
+    image: postgres:17-alpine
+    container_name: leadhunter_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-contentking}
+      POSTGRES_USER: ${POSTGRES_USER:-contentking}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-contentking_secret_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - leadhunter_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-leadhunter} -d ${POSTGRES_DB:-leadhunter}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ─────────────────────────────
+  #  Backend — FastAPI
+  # ─────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: contentking_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_NAME: ${APP_NAME:-ContentKing API}
+      API_V1_PREFIX: ${API_V1_PREFIX:-/api/v1}
+      # Full PostgreSQL DSN using psycopg2 dialect
+      DATABASE_URL: "postgresql+psycopg2://${POSTGRES_USER:-contentking}:${POSTGRES_PASSWORD:-contentking_secret_2024}@postgres:5432/${POSTGRES_DB:-contentking}"
+      SECRET_KEY: ${SECRET_KEY:-contentking_jwt_secret_key_change_in_prod}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:8000/api/v1/auth/google/callback}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-http://localhost:3000}
+      FRONTEND_AUTH_CALLBACK_PATH: ${FRONTEND_AUTH_CALLBACK_PATH:-/auth/callback}
+      # JSON list — the field_validator in config.py handles parsing
+      CORS_ORIGINS: '["http://localhost:3000","http://frontend:3000"]'
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    networks:
+      - leadhunter_net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ─────────────────────────────
+  #  Frontend — Next.js 16
+  # ─────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Baked into the JS bundle at build-time (public API URL)
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000/api/v1}
+    container_name: contentking_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    networks:
+      - leadhunter_net
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+# ─────────────────────────────
+#  Volumes & Networks
+# ─────────────────────────────
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  leadhunter_net:
+    driver: bridge

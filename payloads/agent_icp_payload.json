@@ -1,0 +1,45 @@
+{
+  "agent_id": "agt_12345",
+  "name": "GojiberryAi - Autopilot Agent",
+  "icp": {
+    "target_job_titles": [
+      "Founder",
+      "CMO",
+      "Owner",
+      "Head of sales",
+      "Co-Founder",
+      "CEO"
+    ],
+    "target_locations": [
+      "United States",
+      "Canada",
+      "United Kingdom"
+    ],
+    "target_industries": [
+      "Technology",
+      "Media",
+      "Marketing",
+      "Healthcare",
+      "Finance",
+      "Education",
+      "Manufacturing",
+      "Retail",
+      "Real Estate",
+      "Consulting",
+      "Transportation",
+      "Energy"
+    ],
+    "company_types": [
+      "Private Company",
+      "Startup",
+      "Partnership"
+    ],
+    "company_sizes": [
+      "1-10",
+      "11-50",
+      "51-200",
+      "201-500"
+    ],
+    "additional_criteria": ""
+  }
+}

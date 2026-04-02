@@ -1,0 +1,36 @@
+{
+  "agent_id": "agt_12345",
+  "intent_signals": {
+    "your_company": {
+      "enabled": true,
+      "events_count": 0,
+      "description": "Detect people engaging with your company or your team"
+    },
+    "engagement_and_interest": {
+      "enabled": true,
+      "events_count": 2,
+      "description": "Find people who recently engaged with relevant content on LinkedIn."
+    },
+    "experts_and_creators": {
+      "enabled": true,
+      "events_count": 9,
+      "ai_powered": true,
+      "description": "Spot people engaging with trending content in your niche - in real time"
+    },
+    "change_and_trigger_events": {
+      "enabled": true,
+      "events_count": 0,
+      "description": "Job changes, new hires, or funding announcements that suggest buying intent"
+    },
+    "community_and_events": {
+      "enabled": true,
+      "events_count": 2,
+      "description": "Track Leads by groups joined or events attended"
+    },
+    "competitor_engagement": {
+      "enabled": true,
+      "events_count": 1,
+      "description": "Track Leads following or interacting with competitors or other companies"
+    }
+  }
+}

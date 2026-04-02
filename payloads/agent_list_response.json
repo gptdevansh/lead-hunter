@@ -1,0 +1,14 @@
+{
+  "agents": [
+    {
+      "id": "agt_12345",
+      "name": "GojiberryAi - Autopilot Agent",
+      "status": "Active",
+      "mode": "Autopilot",
+      "targeting_summary": "Targeting Founder, CMO in Technology, Media companies",
+      "last_run": "11 hours ago",
+      "actions": ["View Details", "More"]
+    }
+  ],
+  "total_agents": 1
+}

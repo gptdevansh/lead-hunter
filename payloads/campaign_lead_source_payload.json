@@ -1,0 +1,34 @@
+{
+  "campaign_name": "New Campaign Name",
+  "lead_sources": {
+    "selected_lists": [
+      {
+        "list_id": "lst_67890",
+        "name": "test 2",
+        "contacts_count": 39
+      }
+    ],
+    "available_lists": [
+      {
+        "list_id": "lst_11111",
+        "name": "test 3",
+        "contacts_count": 0
+      },
+      {
+        "list_id": "lst_22222",
+        "name": "Head of sales - test",
+        "contacts_count": 0
+      },
+      {
+        "list_id": "lst_67890",
+        "name": "test 2",
+        "contacts_count": 39
+      },
+      {
+        "list_id": "lst_33333",
+        "name": "test",
+        "contacts_count": 2942
+      }
+    ]
+  }
+}

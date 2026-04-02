@@ -1,0 +1,19 @@
+{
+  "campaigns": [
+    {
+      "id": "cmp_999",
+      "name": "campagne test 2",
+      "status": "Active",
+      "steps_count": 2,
+      "created_at": "Sep 4, 2025"
+    },
+    {
+      "id": "cmp_888",
+      "name": "My Campaign",
+      "status": "Inactive",
+      "steps_count": 2,
+      "created_at": "Sep 4, 2025"
+    }
+  ],
+  "total_campaigns": 2
+}

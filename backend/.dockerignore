@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# SQLite dev database (PostgreSQL is used in Docker)
+*.db
+*.sqlite3
+
+# Environment files (injected at runtime via docker-compose)
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# Docs
+README.md
