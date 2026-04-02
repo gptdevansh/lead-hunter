@@ -45,7 +45,7 @@ services:
       APP_NAME: ${APP_NAME:-LeadHunter API}
       API_V1_PREFIX: ${API_V1_PREFIX:-/api/v1}
       # Full PostgreSQL DSN using psycopg2 dialect
-      DATABASE_URL: "postgresql+psycopg2://${POSTGRES_USER:-leadhunter}:${POSTGRES_PASSWORD:-leadhunter_secret_2024}@postgres:5432/${POSTGRES_DB:-leadhunter}"
+      DATABASE_URL: "postgresql+psycopg2://${POSTGRES_USER:-leadhunter}:${POSTGRES_PASSWORD:-leadhunter_secret_2024}@leadhunter_postgres:5432/${POSTGRES_DB:-leadhunter}"
       SECRET_KEY: ${SECRET_KEY:-leadhunter_jwt_secret_key_change_in_prod}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}

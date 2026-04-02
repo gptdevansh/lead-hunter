@@ -161,7 +161,7 @@ class AuthService:
             raise ValueError("Unable to fetch Google profile")
 
         profile = response.json()
-        if not profile.get("email_verified", False):
+        if not profile.get("email_verified", False) and not profile.get("verified_email", False):
             raise ValueError("Google email is not verified")
         return profile
 
